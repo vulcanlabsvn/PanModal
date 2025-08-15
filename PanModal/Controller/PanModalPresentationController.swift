@@ -411,10 +411,13 @@ private extension PanModalPresentationController {
     func addDragIndicatorView(to view: UIView) {
         view.addSubview(dragIndicatorView)
         dragIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-        dragIndicatorView.bottomAnchor.constraint(equalTo: view.topAnchor, constant: -Constants.indicatorYOffset).isActive = true
-        dragIndicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        dragIndicatorView.widthAnchor.constraint(equalToConstant: Constants.dragIndicatorSize.width).isActive = true
-        dragIndicatorView.heightAnchor.constraint(equalToConstant: Constants.dragIndicatorSize.height).isActive = true
+        
+        NSLayoutConstraint.activate([
+            dragIndicatorView.topAnchor.constraint(equalTo: view.topAnchor, constant: Constants.indicatorYOffset),
+            dragIndicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            dragIndicatorView.widthAnchor.constraint(equalToConstant: Constants.dragIndicatorSize.width),
+            dragIndicatorView.heightAnchor.constraint(equalToConstant: Constants.dragIndicatorSize.height)
+        ])
     }
 
     /**
@@ -853,10 +856,9 @@ private extension PanModalPresentationController {
             drawAroundDragIndicator(currentPath: path, indicatorLeftEdgeXPos: indicatorLeftEdgeXPos)
         }
 
-        // Set path as a mask to display optional drag indicator view & rounded corners
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        view.layer.mask = mask
+        view.layer.cornerRadius = radius
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        view.layer.masksToBounds = true
 
         // Improve performance by rasterizing the layer
         view.layer.shouldRasterize = true
