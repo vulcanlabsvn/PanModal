@@ -1,3 +1,9 @@
+# Why we need to clone this library to Vulcan Repo
+
+iOS ChatSmith uses PanModal library, and this library doesn’t work in iOS 26. All function use presentPanModal will not working, will not present View/Screen for User. The library hasn't been maintaned for a long time. In order to fix this iOS 26 issue, we need to clone the library and make the changes.
+
+<a href="https://vulcanlabs.atlassian.net/wiki/spaces/CS/pages/748257281/Pan+Modal+iOS+26+Issue+Impact+Analysis+Report" target="_blank">Pan Modal iOS 26 Issue Impact Analysis Report </a>
+
 
 ### PanModal is an elegant and highly customizable presentation API for constructing bottom sheet modals on iOS.
 
